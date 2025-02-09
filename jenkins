@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/yourusername/CppProject.git'
+            }
+        }
+
+        stage('Build C++ Program') {
+            steps {
+                bat 'g++ main.cpp -o output.exe'
+            }
+        }
+
+        stage('Run Program') {
+            steps {
+                bat 'output.exe'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and execution successful!'
+        }
+        failure {
+            echo 'Build failed. Check logs for errors.'
+        }
+    }
+}
