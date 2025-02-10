@@ -2,15 +2,21 @@ pipeline {
     agent any
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir() // Deletes everything in the workspace before the build
+            }
+        }
+
         stage('Clone Repository') {
             steps {
-                 git branch: 'main', url:'https://github.com/Siddhant40/Task-3.git'
+                git branch: 'main', url: 'https://github.com/Siddhant40/Task-3.git'
             }
         }
 
         stage('Build C++ Program') {
             steps {
-                bat 'g++ demo.cpp -o output.exe'
+                bat 'g++ main.cpp -o output.exe'
             }
         }
 
@@ -18,15 +24,6 @@ pipeline {
             steps {
                 bat 'output.exe'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and execution successful!'
-        }
-        failure {
-            echo 'Build failed. Check logs for errors.'
         }
     }
 }
