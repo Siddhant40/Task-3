@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build C++ Program') {
             steps {
-                bat 'g++ main.cpp -o output.exe'
+                bat 'g++ demo.cpp -o output.exe'
             }
         }
 
